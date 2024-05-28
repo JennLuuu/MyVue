@@ -1,0 +1,42 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-28 13:47:40
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-28 13:52:07
+ * @FilePath: \MyVue\day01\04.指令语法.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <title></title>
+    </head>
+    <body>
+        <div id="app">
+            单项数据输入(v-bind:)完整版<input type="text" v-bind:value="msg">
+            <br>
+            单项数据输入(:)简写版<input type="text" :value="abab">
+            <br>
+            双向数据输入(v-model="")<input type="text" v-model="val">
+
+            <br>
+            <a :href="url">{{ abab }}</a>
+        </div>
+        <script src="./js//vue.js"></script>
+     <script>
+        const vm = new Vue({
+            data:{
+                msg:"请输入",
+                abab:"阿巴阿巴",
+                val:"嘿嘿嘿",
+                url:"http://baidu.com",
+            }
+        })
+
+        vm.$mount("#app")
+     </script>
+    </body>
+</html>
