@@ -1,3 +1,11 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-28 15:51:35
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-28 18:25:08
+ * @FilePath: \vue-text\Jenn_day01\06.指令语法_v-on.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -7,18 +15,57 @@
     <title></title>
   </head>
   <body>
+    <!-- 
+       * v-on用法 完整版
+         - 不传参默认有event --- v-on:click="handleClick"
+         - 传参无event --- v-on:input="handleInput(2,3)"
+         - 传参且有event --- v-on:input="handleInput(2,$event)"
+       * v-on用法 简写版
+        - @mousemove="handleMousemove"
+        - 传参方式不变
+
+       * v-on绑定的回调函数如果只有一条语句,可以简写为
+        - 
+
+     -->
     <div id="app">
+      <!-- v-on用法 完整版 -->
       <button v-on:click="handleClick">按钮</button>
       <br>
       <input type="text" v-on:input="handleInput(2,$event)">
       <br>
+      <!-- v-on用法 简写版 -->
       <div style="width: 100px;height: 100px;background-color: beige;" @mousemove="handleMousemove"></div>
+
+      <!-- v-on绑定的回调函数如果只有一条语句 -->
+      <div>{{ num }}</div>
+      <button @click="num++">test</button>
+      <br>
+
+      <!-- 阻止默认事件 
+        方式1:原生js操作  e.preventDefault
+        方式2:vue方式  事件修饰符 .prevent
+      -->
+      <a href="http://baidu.com" @click="donntHref">donntHref</a>
+      <a href="http://baidu.com" @click.prevent="login">不让他跳转</a>
+      <br>
+
+      <!-- 键盘事件指定触发按键
+        方式1:原生js操作  e.keyCode.13
+        方式2:vue方式  事件修饰符 
+          2.1 @keyup.键码 = "回调函数名"
+          2.1 @keyup.键名 = "回调函数名"
+       -->
+       <input type="text" @keyup.13 = "handleKeyUp">
+       <!-- <input type="text" @keyup.esc = "handleKeyUp"> -->
     </div>
-    <script src="./js/vue.js"></script>
+    <script src="../js/vue.js"></script>
     <script>
       const vm = new Vue({
-        data: {},
-        methods: {
+        data: {
+          num : 0,
+        },
+        methods: { 
           handleClick(e) {
             console.log("给按钮通过v-on绑定点击事件");
             console.log(e);
@@ -29,6 +76,16 @@
           },
           handleMousemove(){
             console.log("通过v-on简写的方式绑定鼠标移动事件");
+          },
+          donntHref(e){
+            e.preventDefault();
+            console.log("donntHref");
+          },
+          login(){
+            console.log("不让他跳转");
+          },
+          handleKeyUp(){
+            console.log("回车键触发该事件");
           }
         },
       });
