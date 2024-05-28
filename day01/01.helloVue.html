@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="" />
+        <meta name="description" content="" />
+        <title>Hello Vue</title>
+    </head>
+    <body>
+        <!-- 2. 创建根DOM容器,用来展示vue的数据 -->
+        <div id="app">
+            <!-- 5. data展示的位置 -->
+            <h1>{{ msg }}</h1>
+            <p>{{ abc }}</p>
+        </div>
+        <!-- 1. 引入vue -->
+        <script src="./js/vue.js"></script>
+     <script>
+        //3. 创建vue的实例对象 vm
+        const vm = new Vue({
+            // 接收一个对象,用来传递给Vue做实参
+            //data是vue的固定格式,用来存放数据
+            data:{
+                msg:"hello vue~~",
+                abc:"test abc",
+            }
+        })
+
+        //4. 渲染/挂载vue
+        vm.$mount("#app")
+     </script>
+    </body>
+</html>
