@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>计算属性</title>
+  </head>
+  <body>
+    <div id="app">
+      姓: <input type="text" v-model="firstName" /><br />
+      名: <input type="text" v-model="lastName" /><br />
+      <p>姓名: {{ fullName }}</p>
+      <br />
+      <br />
+      <hr />
+      <p>姓名: <input type="text" v-model="fullName" /></p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+        //计算属性
+        computed: {
+          /* //只读计算属性写法
+                fullName(){
+                    return this.firstName + " " + this.lastName
+                } */
+          //可读可写计算属性
+          fullName: {
+            //读取属性时调用getter
+            get() {
+              return this.firstName + " " + this.lastName;
+            },
+            //更新修改属性时调用setter
+            //接收一个参数value,是调用setter时输入的内容(即修改该属性时的值)
+            set(val) {
+              const [firstName, lastName] = val.split(" ");
+              this.firstName = firstName;
+              this.lastName = lastName;
+            },
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
