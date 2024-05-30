@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>收集表单数据</title>
+    <style>
+      form {
+        line-height: 35px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+            收集表单数据
+            表单提交数据的两种方式:
+             - button的submit属性
+             - form的submit方法
+
+         -->
+    <div id="app">
+      <!-- 表单提交数据方法二 -->
+      <form @submit.prevent="handlerBtnSubmit">
+        <label>
+          账号 <input type="text" v-model="userFormData.userName" />
+        </label>
+        <br />
+        <label>
+          密码 <input type="password" v-model="userFormData.password" />
+        </label>
+        <br />
+        <label>
+          性别
+          <input
+            type="radio"
+            name="sex"
+            :value="1"
+            v-model="userFormData.sex"
+          />男
+          <input
+            type="radio"
+            name="sex"
+            :value="0"
+            v-model="userFormData.sex"
+          />女
+          <!-- 这里的value之所以要绑定v-bind,是因为想要拿到的value是number,v-bind会将引号中的值当作表达式解析,就能拿到number的值(当然也可以用别的转number的方式) -->
+        </label>
+        <br />
+        <label>
+          爱好
+          <input
+            type="checkbox"
+            name="hobby"
+            value="read"
+            v-model="userFormData.hobby"
+          />阅读
+          <input
+            type="checkbox"
+            name="hobby"
+            value="movie"
+            v-model="userFormData.hobby"
+          />看电影
+          <input
+            type="checkbox"
+            name="hobby"
+            value="DIY"
+            v-model="userFormData.hobby"
+          />手作
+          <input
+            type="checkbox"
+            name="hobby"
+            value="puzzle"
+            v-model="userFormData.hobby"
+          />拼图
+        </label>
+        <br />
+        <label>
+          所到地区
+          <select name="address" v-model="userFormData.address">
+            <option value="beijing">北京</option>
+            <option value="shanxi">山西</option>
+            <option value="hebei">河北</option>
+            <option value="neimeng">内蒙</option>
+          </select>
+        </label>
+        <br />
+        <textarea
+          name="others"
+          rows="5"
+          v-model="userFormData.others"
+        ></textarea>
+        <br />
+        <button type="">提交</button>
+        <!-- 提交表单信息方法一 -->
+        <!-- <button @click.prevent="handlerBtnSubmit">提交</button> -->
+      </form>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          userFormData: {
+            userName: "",
+            password: "",
+            sex: 1,
+            hobby: [],
+            address: "",
+            others: "",
+          },
+        },
+        methods: {
+          handlerBtnSubmit() {
+            console.log(this.userFormData);
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

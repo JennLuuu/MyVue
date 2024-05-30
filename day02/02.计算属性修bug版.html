@@ -1,0 +1,70 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-29 10:24:55
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-30 15:32:33
+ * @FilePath: \vue-text\Jenn_day02\未完 02.计算属性修bug版.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>计算属性</title>
+  </head>
+  <body>
+    <div id="app">
+      姓: <input type="text" v-model="firstName" /><br />
+      名: <input type="text" v-model="lastName" /><br />
+      <p>姓名: {{ fullName }}</p>
+      <br />
+      <br />
+      <hr />
+      <p>姓名: <input type="text" v-model="fullName" /></p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          firstName: "",
+          lastName: "",
+        },
+        //计算属性
+        computed: {
+          /* //只读计算属性写法
+                fullName(){
+                    return this.firstName + " " + this.lastName
+                } */
+          //可读可写计算属性
+          fullName: {
+            //读取属性时调用getter
+            get() {
+              if (this.firstName === "" && this.lastName === "") {
+                return "";
+              }
+              if (this.firstName === "") {
+                return this.lastName;
+              }
+              if (this.lastName === "") {
+                return this.firstName;
+              }
+              return this.firstName + " " + this.lastName;
+            },
+            //更新修改属性时调用setter
+            //接收一个参数value,是调用setter时输入的内容(即修改该属性时的值)
+            set(val) {
+              if (val.includes("")) {
+                const [firstName="", lastName=""] = val.split(" ");
+                this.firstName = firstName;
+                this.lastName = lastName;
+              }
+            },
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
