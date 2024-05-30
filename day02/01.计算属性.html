@@ -18,12 +18,18 @@
     </div>
     <script src="../js/vue.js"></script>
     <script>
+      /* 
+      vue会把data / methods / computed等数据全部挂载在this上,可以直接通过this拿到需要的数据
+      */
       const vm = new Vue({
         data: {
           firstName: "",
           lastName: "",
         },
         //计算属性
+        /* 
+          计算属性有缓存,若计算属性所依赖的数据没有发生变化,就不会重新计算,直接读取缓存
+        */
         computed: {
           /* //只读计算属性写法
                 fullName(){

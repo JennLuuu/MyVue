@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>动态样式处理</title>
+    <style>
+      .outer {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(175, 175, 105);
+      }
+      .change {
+        width: 100px;
+        height: 100px;
+        background-color: rgb(209, 122, 226);
+      }
+      .color {
+        color: rgb(167, 13, 13);
+      }
+      .fontSize {
+        font-size: 30px;
+      }
+      .backColor {
+        background-color: aqua;
+      }
+      .active{
+        color: rgb(199, 47, 47);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 动态样式设置class --- 方式一: 字符串形式 -->
+      <div :class="style">酷酷写</div>
+      <button @click="handlerStyle">切换</button>
+
+      <!-- 动态样式设置class --- 方式二: 对象形式 -->
+      <h1
+        :class="{
+        color:color,
+        fontSize:fontSize,
+        }"
+      >
+        乱七芭蕉
+      </h1>
+      <button @click="handlerColor">切换</button>
+
+      <!-- 动态样式设置class --- 方式三: 数组形式
+        数组形式写的class,写了就会渲染
+    -->
+
+      <p :class="['fontSize',backColor]">一上一个不吱声</p>
+
+      <!-- 点击高亮 -->
+      <ul>
+        <li :class="{active:isEatActive}" @click="setActive('Eat')">吃饭</li>
+        <li :class="{active:isSleepActive}" @click="setActive('Sleep')">
+          睡觉
+        </li>
+        <li :class="{active:isDouActive}" @click="setActive('Dou')">打豆豆</li>
+      </ul>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      let count = 0;
+
+      const vm = new Vue({
+        data: {
+          style: "change",
+          color: "color",
+          fontSize: "fontSize",
+          backColor: "backColor",
+          //默认都是不高亮的
+          isEatActive: false,
+          isSleepActive: false,
+          isDouActive: false,
+        },
+        methods: {
+          handlerStyle() {
+            this.style = this.style === "change" ? "outer" : "change";
+          },
+          handlerColor() {
+            count++;
+            if (count % 2 === 0) {
+              this.color = false;
+              this.fontSize = true;
+            }
+            if (count % 2 === 1) {
+              this.color = !this.color;
+              this.fontSize = !this.fontSize;
+            }
+          },
+          setActive(flag) {
+            this.isEatActive = false;
+            this.isSleepActive = false;
+            this.isDouActive = false;
+
+            this[`is${flag}Active`] = true;
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

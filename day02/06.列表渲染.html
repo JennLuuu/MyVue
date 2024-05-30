@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>列表渲染</title>
+  </head>
+  <body>
+    <!-- 
+        v-for
+        v-for="(item,index) in 要遍历的数据"
+        可简写为 : v-for="item in 要遍历的数据"
+
+        遍历的元素要求添加一个key属性,值是唯一的,一半使用数据的id
+        key主要用来提升性能(diff比较时,依据key来进行比对)
+      -->
+    <div id="app">
+      <ul>
+        <li v-for="(person,idx) in persons" :key="person.id">
+          {{ person.name }}>> {{ idx }}
+        </li>
+      </ul>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          persons: [
+            { id: 1, name: "玛卡巴卡" },
+            { id: 2, name: "唔西迪西" },
+            { id: 3, name: "天线宝宝" },
+          ],
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

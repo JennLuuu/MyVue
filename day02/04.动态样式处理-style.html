@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>动态样式处理-style</title>
+  </head>
+  <body>
+    <!-- 
+            动态style,命名要写成小驼峰
+            
+         -->
+    <div id="app">
+      <h1
+        :style="{width:'370px',color:'#4c7010',fontSize:'50px',border:`${border}px solid #555`}"
+      >
+        快要可以吃饭了
+      </h1>
+      <button @click="border++;">点击增加边框宽度</button>
+      <button @click="border=0">清除边框</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          border: 0,
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

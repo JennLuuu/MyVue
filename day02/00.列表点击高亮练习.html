@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>列表点击高亮练习</title>
+    <style>
+      * {
+        list-style: none;
+      }
+      .active {
+        background-color: #d9a5a5;
+        color: #6a1111;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <ul>
+        <li :class="{active:isXiaoXin}" @click="setActive('XiaoXin')">
+          小心超人
+        </li>
+        <li :class="{active:isJiangJun}" @click="setActive('JiangJun')">
+          大大怪将军
+        </li>
+        <li :class="{active:isHuaXin}" @click="setActive('HuaXin')">
+          花心超人
+        </li>
+        <li :class="{active:isXiaShi}" @click="setActive('XiaShi')">
+          小小怪下士
+        </li>
+      </ul>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          //默认都没有active
+          isXiaoXin: false,
+          isJiangJun: false,
+          isHuaXin: false,
+          isXiaShi: false,
+        },
+        methods: {
+          //触发点击事件,改为高亮
+          setActive(flag) {
+            this.isXiaoXin = false;
+            this.isJiangJun = false;
+            this.isHuaXin = false;
+            this.isXiaShi = false;
+
+            //触发事件的li高亮
+            this[`is${flag}`] = true;
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

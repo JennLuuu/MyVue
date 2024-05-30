@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>小练习--模糊搜索+排序</title>
+  </head>
+  <body>
+    <!-- 
+        1. 遍历展示数据
+            v-for
+
+        2. 搜索匹配功能
+             - 收集数据 : v-model
+             - 绑定事件 : v-on
+
+        3. 排序功能
+             - 排序:sort
+
+     -->
+    <div id="app">
+      <input
+        type="text"
+        placeholder="按回车键输入要搜索的内容"
+        @keyup.enter="searchPerson"
+      />
+      <ul>
+        <!-- 1. 遍历展示数据: v-for -->
+        <li v-for="person in newPersons" :key="person.id">
+          {{ person.name }} --> {{ person.age }}
+        </li>
+      </ul>
+
+      <!-- 有不同的功能,往往会定义不同的data数据来管理 -->
+      <button @click="sortBy = 'asc'">年龄升序</button>
+      <button @click="sortBy = 'desc'">年龄降序</button>
+      <button @click="sortBy = ''">原本顺序</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          persons: [
+            { id: 1, name: "开心超人", age: 15 },
+            { id: 2, name: "甜心超人", age: 13 },
+            { id: 3, name: "花心超人", age: 18 },
+            { id: 4, name: "粗心超人", age: 16 },
+            { id: 5, name: "小心超人", age: 17 },
+            { id: 6, name: "宅博士", age: 38 },
+            { id: 7, name: "大大怪将军", age: 42 },
+            { id: 8, name: "小小怪下士", age: 17 },
+          ],
+          searchText: "",
+
+          //   排序标识 : ''原本顺序, asc升序,desc降序
+          sortBy: "",
+        },
+        computed: {
+          //计算属性,所依赖的数据一旦发生变化,计算属性就随之变化,所以不用回车也能搜索(v-model双向数据绑定)
+          //这样不符合需求
+          //所以可以在回车事件触发时,再收集用户输入的内容,再更新到searchText中
+          newPersons() {
+            //过滤符合条件的内容
+            const newPersons = this.persons.filter((person) =>
+              person.name.includes(this.searchText)
+            );
+
+            //排序
+            if (this.sortBy) {
+              newPersons.sort((a, b) =>
+                this.sortBy === "asc" ? a.age - b.age : b.age - a.age
+              );
+            }
+
+            //返回值
+            return newPersons;
+          },
+        },
+        methods: {
+          searchPerson(e) {
+            this.searchText = e.target.value;
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

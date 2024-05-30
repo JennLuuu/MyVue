@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>小练习--模糊搜索+排序</title>
+  </head>
+  <body>
+    <!-- 
+        1. 遍历展示数据
+            v-for
+
+        2. 搜索匹配功能
+             - 收集数据 : v-model
+             - 绑定事件 : v-on
+
+
+     -->
+    <div id="app">
+      <input
+        type="text"
+        placeholder="按回车键输入要搜索的内容"
+        v-model="searchText"
+        @keyup.enter="searchPerson"
+      />
+      <ul>
+        <!-- 1. 遍历展示数据: v-for -->
+        <li v-for="person in newPersons" :key="person.id">
+          {{ person.name }} --> {{ person.age }}
+        </li>
+      </ul>
+
+      <!-- 有不同的功能,往往会定义不同的data数据来管理 -->
+      <button @click="sortBy = 'asc'">年龄升序</button>
+      <button @click="sortBy = 'desc'">年龄降序</button>
+      <button @click="sortBy = ''">原本顺序</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          persons: [
+            { id: 1, name: "开心超人", age: 15 },
+            { id: 2, name: "甜心超人", age: 13 },
+            { id: 3, name: "花心超人", age: 18 },
+            { id: 4, name: "粗心超人", age: 16 },
+            { id: 5, name: "小心超人", age: 17 },
+            { id: 6, name: "宅博士", age: 38 },
+            { id: 7, name: "大大怪将军", age: 42 },
+            { id: 8, name: "小小怪下士", age: 17 },
+          ],
+          searchText: "",
+          newPersons: [
+            { id: 1, name: "开心超人", age: 15 },
+            { id: 2, name: "甜心超人", age: 13 },
+            { id: 3, name: "花心超人", age: 18 },
+            { id: 4, name: "粗心超人", age: 16 },
+            { id: 5, name: "小心超人", age: 17 },
+            { id: 6, name: "宅博士", age: 38 },
+            { id: 7, name: "大大怪将军", age: 42 },
+            { id: 8, name: "小小怪下士", age: 17 },
+          ],
+        
+        //   排序标识 : ''原本顺序, asc升序,desc降序
+        sortBy:"",
+        },
+        methods: {
+          searchPerson() {
+            //通过数组的过滤,能让回调函数返回true的item保留
+            //person.name是个字符串,判断一个字符串中包含另一个字符串 : includes
+            //filter返回一个新数组,该数组就是要展示到页面上的搜索后的内容
+            //模板中只能展示data中有的数据,所以newPersons需要在data中定义
+            this.newPersons = this.persons.filter((person) =>
+              person.name.includes(this.searchText)
+            );
+          },
+          
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

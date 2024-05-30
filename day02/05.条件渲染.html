@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>条件渲染</title>
+  </head>
+  <body>
+    <!-- 
+        条件渲染:
+        作用 : 控制切换元素怒显示&隐藏
+         * v-if / v-else / v-else if
+         * v-show
+
+         区别:
+         隐藏时v-if是将元素从DOM树中移除,v-show是通过样式display:none隐藏
+        
+         频繁切换元素的显示&隐藏时,v-show性能更好
+         不频繁,v-if相对更好
+     -->
+    <div id="app">
+      <div v-if="visible">这是v-if控制的</div>
+      <div v-show="visible">这是v-show控制的</div>
+      <!-- <button @click="handlerClick">切换</button> -->
+      <button @click="visible = !visible">切换</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          visible: true,
+        },
+        methods: {
+            handlerClick() {
+                this.visible = !this.visible
+            }
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
