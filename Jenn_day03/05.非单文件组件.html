@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>非单文件组件</title>
+  </head>
+  <body>
+    <!-- 
+            1. 定义组件
+            2. 注册组件
+            3. 使用组件
+
+         -->
+    <div id="app">
+      <!-- 3. 使用组件 -->
+      <my-component></my-component>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      //1. 定义组件
+      const MyComponent = {
+        name: "MyComponent", //组件名,用于开发者调试工具展示组件名称
+        //data有两种写法，对象形式和函数形式
+        //组件中必须用函数形式
+        data() {
+          return {
+            num: 0,
+          };
+        },
+        methods: {
+          handleClick() {
+            this.num++;
+          },
+        },
+        watch: {},
+        computed: {},
+        //可以写html语法进行解析
+        template: `<div><p>这个不用啦，现在都用高级的单文件组件啦{{ num }}<br/><button @click="handleClick">点一下</button></p></div>`,
+      };
+      const vm = new Vue({
+        data: {},
+        //2. 注册组件
+        components: {
+          MyComponent,
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

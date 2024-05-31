@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>生命周期函数/钩子</title>
+  </head>
+  <body>
+    <!-- 
+            生命周期函数/生命周期钩子/lifeCycle hooks
+             * 初始化渲染阶段  ->  第一次渲染触发
+                - beforeCreate()
+                - created()
+                - beforeMount()
+                - mounted()
+             * 更新阶段  ->  当修改data数据时触发
+                - beforeUpdate()
+                - updated()
+             * 卸载阶段  ->  手动销毁 vm.$destroy()
+                - beforeDestroy()
+                - destroyed()
+
+            重点注意：
+             * mounted：初始化渲染完成之后触发
+                发送请求、设置定时器、绑定事件等异步任务
+                1. mounted可以直接操作DOM
+                2. mounted执行任务，不会阻塞渲染（让渲染速度更快）
+             * beforeDestroy：在销毁之前触发
+                清除定时器、解绑事件等收尾工作  ->  防止内存泄漏
+         -->
+    <div id="app">
+      <p>{{ num }}</p>
+      <button @click="num++">按钮</button>
+      <button @click="$destroy()">都给我噶</button>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          num: 0,
+        },
+        //初始化阶段
+        beforeCreate() {
+          console.log("beforeCreate()");
+        },
+        created() {
+          console.log("created()");
+        },
+        beforeMount() {
+          console.log("beforeMount()");
+        },
+        mounted() {
+          console.log("mounted()");
+        },
+        //数据更新阶段
+        beforeUpdate() {
+          console.log("beforeUpdate()");
+        },
+        updated() {
+          console.log("updated()");
+        },
+        //数据卸载阶段  ->  手动销毁 vm.$destroy()
+        beforeDestroy() {
+          console.log("beforeDestroy()");
+        },
+        destroyed() {
+          console.log("destroyed()");
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

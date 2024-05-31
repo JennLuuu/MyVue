@@ -1,0 +1,72 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-31 20:24:47
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-31 20:52:27
+ * @FilePath: \vue-text\Jenn_day03\06.单文件组件.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!-- 
+     * 操作的文件均写在src中，且文件名字一定程度的要求固定不变
+     * 每个项目都有自己的vue脚手架，每一个项目需要单独的在vscode中打开，放在其他文件夹中打开会报错
+        - 创建脚手架：vue create 项目名称
+        - 运行项目：npm run serve
+
+     * 如何运行脚手架/项目：在package.json的“scripts”中有标注
+    
+     步骤：
+    1. 定义组件/引入组件
+    2. 注册组件
+    3. 使用组件
+
+    组件组成：
+     * <template></template>
+        - 用来书写当前组件的html代码
+        - 要求必须有且只有一个根标签
+     * <script></script>
+        - 用来书写当前组件的js代码
+        - 要求默认暴露一个对象
+            export default {
+                name:"组件名"，
+                data(){}，
+                components:{},
+            }
+        - 组件必须写组件名
+            - App的组件名可以叫App
+            - 其余组件的组件名必须是两个及以上的单词，且是大驼峰形式
+        - 组件中的data必须写函数形式，防止组件复用时，不同组件操作同一份数据
+     * <style></style>
+        - 用来书写当前组件的css样式
+        - 书写要求和css一致
+
+    书写流程：
+     * main.js是入口文件
+        - 引入各组件，包括vue、App、全局定义的组件
+        - 关闭提示：`Vue.config.productionTip = false;`
+        - （全局注册组件）（全局组件哪里都能用）
+            - Vue.component("MyComponent2", MyComponent2);
+        - 创建vue实例
+            ```js
+            new Vue({
+                render: (h) => h(App),
+            }).$mount("#app");
+            ```
+     * App.vue
+        - 组件汇集处
+        - step1: 需要引入App中所有要用到的组件
+            - `import MyComponent from "./views/MyComponent";`
+        - step2: 注册组件
+            - 在App的配置对象的components配置项中，局部注册组件
+            ```js
+                components: {
+                    MyComponent,
+                },
+            ```
+        - step3: 使用组件
+            - 在当前组件的<template></template>中的根标签中使用组件
+            -   <MyComponent />
+                <MyComponent></MyComponent>
+            - 两种使用方式都可以，常用<MyComponent />
+     * components和view文件夹
+        - 常用为：复用的组件放在components中，不复用的组件放在view中
+ -->

@@ -1,0 +1,60 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-31 11:13:13
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-31 18:18:08
+ * @FilePath: \vue-text\Jenn_day03\01.其他指令.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>其他指令</title>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+             + v-cloak  
+                - 防止闪现：在Vue还未解析模板时，先将模板隐藏
+                - 要配合样式使用
+                    [v-cloak] {
+                        display: none;
+                    }
+                 - 写了v-cloak的模板元素就会默认隐藏，当vue加载完成，就会自动删除v-cloak属性
+             + v-text
+                - 解析data中的数据至模板元素
+             + v-html
+                - 能够解析data中的html标签
+             + v-pre
+                - 跳过渲染：Vue不会对元素进行解析
+             + v-once
+                - 只渲染/解析一次
+
+         -->
+    <div id="app">
+      <p v-cloak>{{ hello }}</p>
+      <p v-text="hello"></p>
+      <p v-html="say"></p>
+      <p v-pre>{{ hello }}</p>
+      <p v-once @click="num++">{{num}}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          hello: "world",
+          say: "<b>hi</b>",
+          num: 0,
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

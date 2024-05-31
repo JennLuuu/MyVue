@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>自定义属性</title>
+  </head>
+  <body>
+    <!-- 
+            自定义属性：
+             + 局部属性：
+                - directives:{
+                    "指令-名称"(el,binding){
+                    }
+                }
+             + 全局属性：
+                - Vue.directive("指令-名称"，(el,binding)=>{})
+            回调函数的参数：
+             + el：绑定指令属性的DOM元素
+             + binding：指令信息
+                - expression：表达式
+                - value：表达式的值
+                - name：指令名称
+                - rawName：指令完整名称
+
+            一般定义全局指令较多，这样多个vue时，也都能复用指令
+         -->
+    <div id="app">
+      <p>{{ say }}</p>
+      <br />
+      <p v-lower-case="say">{{ say }}</p>
+      <br />
+      <p v-upper-case="say">{{ say }}</p>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      //全局指令
+      Vue.directive("upper-case", (el, binding) => {
+        el.textContent = binding.value.toUpperCase();
+      });
+      const vm = new Vue({
+        data: {
+          say: "Hello World",
+        },
+        directives: {
+          //局部指令
+          "lower-case"(el, binding) {
+            el.textContent = binding.value.toLowerCase();
+          },
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>

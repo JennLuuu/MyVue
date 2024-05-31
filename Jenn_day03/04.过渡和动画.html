@@ -1,0 +1,116 @@
+<!--
+ * @Author: Jenn_Lu 1129694837@qq.com
+ * @Date: 2024-05-31 18:19:04
+ * @LastEditors: Jenn_Lu 1129694837@qq.com
+ * @LastEditTime: 2024-05-31 18:41:03
+ * @FilePath: \vue-text\Jenn_day03\04.过渡和动画.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <title>过渡和动画</title>
+    <style>
+      /* 过渡动画 */
+      .v-enter,
+      .v-leave-to {
+        transform: translateX(300px);
+        opacity: 0;
+      }
+      .v-enter-active,
+      .v-leave-active {
+        transition: 5s all;
+      }
+      .v-enter-to,
+      .v-leave {
+        transform: translateX(0);
+        opacity: 1;
+      }
+
+      /* 动画 */
+      .move-leave-active {
+        animation: move 2s linear;
+      }
+      .move-enter-active {
+        animation: move 2s linear reverse;
+      }
+
+      @keyframes move {
+        0% {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        50% {
+          opacity: 1;
+          transform: translateX(100px);
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(200px);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 
+        1. 过渡
+            vue提供一个标签<transition></transition>,可以控制元素的动画效果
+            （实际上给元素添加了类名）
+             * <transition></transition>只能控制一个元素的动画
+             * 要想控制多个元素的动画，要用<transition-group></transition-group>，组内的每个元素要写唯一的key
+             * 要想在页面中写多个动画效果，且效果都不一样，
+                <transition name="xxx"></transition>
+                xxx-enter-active
+            
+            关键字都是类似类名，需要 `.v-enter`
+             * enter  从隐藏到显示
+                - v-enter（刚开始进入）--要进入
+                - v-enter-active（进行中）
+                - v-enter-to（进入阶段结束）
+             * leave  从显示到隐藏
+                - v-leave （刚开始离开）
+                - v-leave-active（进行中）
+                - v-leave-to（离开阶段结束）
+
+            过渡的样式依旧是写在css中（style中）
+
+        2. 动画
+           @keyframes 动画名 {
+            0% {
+            }
+            50% {
+            }
+            100% {
+            }
+           } 
+
+           <transition name="动画名"></transition>
+            动画名-enter-active{
+                animation:动画名 时长 运动速度
+            }
+         -->
+    <div id="app">
+      <button @click="isShow = !isShow">按钮</button>
+      <transition>
+        <p v-show="isShow">嗨~ 阿巴阿巴~</p>
+      </transition>
+
+      <transition-group name="move">
+        <p v-show="isShow" :key="1">又要阿巴阿巴了</p>
+        <p v-show="isShow" :key="2">这回玛卡巴卡</p>
+      </transition-group>
+    </div>
+    <script src="../js/vue.js"></script>
+    <script>
+      const vm = new Vue({
+        data: {
+          isShow: false,
+        },
+      });
+      vm.$mount("#app");
+    </script>
+  </body>
+</html>
